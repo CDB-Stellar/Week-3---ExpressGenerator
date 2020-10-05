@@ -1,0 +1,56 @@
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!-- this can be changed to navbar-light/bg-light or navbar-dark/bg-dark -->
+    <a class="navbar-brand" href="/">COMP 229</a><!-- this brand itself can be a nav, "/" is the home page -->
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- ^ this button is the "hamburger", if on mobile or small screen you get this condensed menu. (Try making the browser window small to see) -->
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto"> <!-- mr-auto makes the nav go on the left, ml-auto makes it go on the right -->
+        
+        <!-- Using ejs to set the right nav icons to active as necessary -->
+        <% if (title == "Home") { %>
+        <li class="nav-item active">
+        <% } else { %>
+        <li class="nav-item">
+        <% } %>
+          <a class="nav-link" href="/home"><i class="fas fa-lg fa-laptop-house"></i> Home </a><!-- this uses the fontawesome class for an icon "fa-lg" is optional, it makes the icon larger -->
+        </li> <!-- this is the home link, /home is the route -->
+        
+        <!-- all the links below are the next navigation links -->
+        <% if (title == "About") { %>
+        <li class="nav-item active">
+        <% } else { %>
+        <li class="nav-item">
+        <% } %>
+          <a class="nav-link" href="/about"><i class="fas fa-lg fa-info-circle"></i> About </a>
+        </li>
+        
+        <% if (title == "Products") { %>
+        <li class="nav-item active">
+        <% } else { %>
+        <li class="nav-item">
+        <% } %>
+          <a class="nav-link" href="/products"><i class="fas fa-lg fa-shopping-cart"></i> Products </a>
+        </li>
+        
+        <% if (title == "Services") { %>
+        <li class="nav-item active">
+        <% } else { %>
+        <li class="nav-item">
+        <% } %>
+          <a class="nav-link" href="/services"><i class="fas fa-lg fa-cog"></i> Services </a>
+        </li>
+        
+        <% if (title == "Contact Us") { %>
+        <li class="nav-item active">
+        <% } else { %>
+        <li class="nav-item">
+        <% } %>
+          <a class="nav-link" href="/contact"><i class="fas fa-lg fa-phone-square-alt"></i> Contact Us </a>
+        </li>
+
+    </div>
+  </nav>

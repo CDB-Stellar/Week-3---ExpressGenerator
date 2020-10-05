@@ -1,0 +1,17 @@
+<!--This is essentially the html template used for EACH page. This whole site is a single-page application (SPA).
+every <%= %> is where something is being "injected" from routes/index.js-->
+
+<%- include partials/header.ejs %>
+
+<%- include partials/main_nav.ejs %>
+
+  <!-- Main Content -->
+  <main class="container"> <!--container class keeps it from hitting the edges-->
+    <div class="jumbotron">
+      <h1 class="display-4">Welcome to the <%= title %> page</h1>
+    </div>
+  </main>
+
+<%- include partials/bottom_nav.ejs %>
+
+<%- include partials/footer.ejs %>

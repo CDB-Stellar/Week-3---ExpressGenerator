@@ -1,0 +1,12 @@
+<!-- if something goes weird, we still want the nav to be able to get out -->
+<%- include partials/header.ejs %>
+<%- include partials/main_nav.ejs %>
+
+<div class='container'> <!-- put this in a container to keep it in the middle looking a little nicer -->
+    <h1><%= message %></h1>
+    <h2><%= error.status %></h2> <!-- In a finished wite you don't want to ever show the error.status or error.stack -->
+    <pre><%= error.stack %></pre>
+</div>
+
+<%- include partials/bottom_nav.ejs %>
+<%- include partials/footer.ejs %>
