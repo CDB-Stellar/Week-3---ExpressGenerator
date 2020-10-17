@@ -6,27 +6,43 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
-//These are routers
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
+//Database setup
+let mongoose = require('mongoose');
+let DB = require('./db');
+
+//Point Mongoose to the db URI
+mongoose.connect(DB.URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
+//see when we are connected to the db:
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
+mongoDB.once('open', ()=>{
+  console.log('Connected to MongoDB...');
+});
+
+//Define the connection to the routers
+let indexRouter = require('../routes/index');
+let usersRouter = require('../routes/users');
+let booksRouter = require('../routes/book'); //for the book_store db
 
 //This line makes a new express application. Stores it in the app variable
 let app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); //this line tells the application where the views are
+app.set('views', path.join(__dirname, '../views')); //this line tells the application where the views are
 app.set('view engine', 'ejs'); //express -e configured the view engine
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public'))); //anything in public folder is automatically a route
+app.use(express.static(path.join(__dirname, '../public'))); //anything in public folder is automatically a route
 //^ it can be tedious to have to manually add all routes in a site which is why you would make a static route (in this course everything is manual though)
-app.use(express.static(path.join(__dirname, 'node_modules'))); //this lets you not have to put the node_modules path part in index.ejs
+app.use(express.static(path.join(__dirname, '../node_modules'))); //this lets you not have to put the node_modules path part in index.ejs
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/book-list', booksRouter); //for the book_store db
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
