@@ -36,9 +36,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public'))); //anything in public folder is automatically a route
+app.use(express.static(path.join(__dirname, '../../public'))); //anything in public folder is automatically a route
 //^ it can be tedious to have to manually add all routes in a site which is why you would make a static route (in this course everything is manual though)
-app.use(express.static(path.join(__dirname, '../node_modules'))); //this lets you not have to put the node_modules path part in index.ejs
+app.use(express.static(path.join(__dirname, '../../node_modules'))); //this lets you not have to put the node_modules path part in index.ejs
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
