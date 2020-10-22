@@ -15,13 +15,17 @@ module.exports.displayBookList = (req, res, next) => {
         else 
         {
             //print out the Book list in the book.ejs table
-            res.render('book/list', { title: 'Books', BookList: bookList });
+            res.render('book/list', { 
+                title: 'Books', 
+                BookList: bookList, 
+                displayName: req.user ? req.user.displayName : '' });
         }
     }) 
 }
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('book/add', { title: 'Add Book'});
+    res.render('book/add', { title: 'Add Book', 
+    displayName: req.user ? req.user.displayName : ''});
 }
 
 module.exports.processAddPage = (req, res, next) => { //same route(/add) as the display page but something different will happen
@@ -59,7 +63,8 @@ module.exports.displayEditPage = (req, res, next) => {
         else
         {
             //show the edit view
-            res.render('book/edit', {title: 'Edit Book', book: bookToEdit});
+            res.render('book/edit', {title: 'Edit Book', book: bookToEdit, 
+            displayName: req.user ? req.user.displayName : ''});
         }
     });
 }

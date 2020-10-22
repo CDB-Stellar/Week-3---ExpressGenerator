@@ -8,26 +8,28 @@ let passport = require('passport');
 let userModel = require('../models/user');
 let User = userModel.User; //alias
 
+//Main Navigations
 //displayHomePage is a method
 module.exports.displayHomePage = (req, res, next) => {
-    res.render('index', {title: 'Home'}); //render the index.ejs page
+    res.render('index', {title: 'Home', displayName: req.user ? req.user.displayName : ''}); //render the index.ejs page
     //pass it 'title' property that has the value 'Express'
     //could pass multiple properties (Ex. title: 'Express', h1: 'Main Heading')
     //whatever you pass will be "injected" into the index.ejs file, you should have it there between <%= %>
 }
 module.exports.displayAboutPage = (req, res, next) => {
-    res.render('index', {title: 'About'}); 
+    res.render('index', {title: 'About', displayName: req.user ? req.user.displayName : ''}); 
 }
 module.exports.displayProductsPage = (req, res, next) => {
-    res.render('index', { title: 'Products' }); 
+    res.render('index', { title: 'Products', displayName: req.user ? req.user.displayName : ''}); 
 }
 module.exports.displayServicesPage = (req, res, next) => {
-    res.render('index', { title: 'Services' }); 
+    res.render('index', { title: 'Services', displayName: req.user ? req.user.displayName : ''}); 
 }
 module.exports.displayContactPage = (req, res, next) => {
-    res.render('index', { title: 'Contact Us' }); 
+    res.render('index', { title: 'Contact Us', displayName: req.user ? req.user.displayName : ''}); 
 }
 
+//Login / Register / Logout
 module.exports.displayLoginPage = (req, res, next) => {
     //check if the user is already logged in
     if (!req.user) //if they are not logged in
