@@ -27,7 +27,7 @@
     "passport-local-mongoose": "^6.0.1",
     "popper.js": "^1.16.1"
   },
-  "description": "Week 3 - ExpressGenerator",
+  "description": "Week 6 Authentication",
   "main": "server.js",
   "devDependencies": {
     "@types/connect-flash": "0.0.35",
