@@ -52,7 +52,7 @@ app.use(session({
   secret: "SomeSecret",
   saveUninitialized: false,
   resave: false
-}))
+}));
 
 // Initialize flash - gives ability to maintain error message
 app.use(flash());
@@ -65,6 +65,9 @@ app.use(passport.session());
 // Create a user model instance
 let userModel = require('../models/user');
 let User = userModel.User; //alias
+
+// Implement userStrategy
+passport.use(User.createStrategy());
 
 // Serialize / deserialize the user info (encrypt/decrypt)
 passport.serializeUser(User.serializeUser());

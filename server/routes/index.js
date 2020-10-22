@@ -17,4 +17,15 @@ router.get('/services', indexController.displayServicesPage);
 //Contact Us page
 router.get('/contact', indexController.displayContactPage);
 
+//GET route for displaying login page
+router.get('/login', indexController.displayLoginPage);
+//GET route for processing login page
+router.post('/login', indexController.processLoginPage);
+//GET route for displaying register page
+router.get('/register', indexController.displayRegisterPage);
+//GET route for processing register page
+router.post('/register', indexController.processRegisterPage);
+//GET to perform user logout
+router.get('/logout', indexController.performLogout);
+
 module.exports = router;
