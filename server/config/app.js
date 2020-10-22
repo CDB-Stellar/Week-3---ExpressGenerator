@@ -6,6 +6,13 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+// modules for authentication
+let session = require('express-session');
+let passport = require('passport');
+let passportLocal = require('passport-local');
+let localStrategy = passportLocal.Strategy;
+let flash = require('connect-flash');
+
 //Database setup
 let mongoose = require('mongoose');
 let DB = require('./db');
@@ -39,6 +46,29 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public'))); //anything in public folder is automatically a route
 //^ it can be tedious to have to manually add all routes in a site which is why you would make a static route (in this course everything is manual though)
 app.use(express.static(path.join(__dirname, '../../node_modules'))); //this lets you not have to put the node_modules path part in index.ejs
+
+// Setup express session
+app.use(session({
+  secret: "SomeSecret",
+  saveUninitialized: false,
+  resave: false
+}))
+
+// Initialize flash - gives ability to maintain error message
+app.use(flash());
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport user configuration
+// Create a user model instance
+let userModel = require('../models/user');
+let User = userModel.User; //alias
+
+// Serialize / deserialize the user info (encrypt/decrypt)
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
