@@ -3,6 +3,8 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 
+let jwt = require('jsonwebtoken');
+
 // create a reference to the db schema (model)
 let Book = require('../models/book'); //book model
 

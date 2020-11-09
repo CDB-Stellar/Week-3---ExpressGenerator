@@ -4,6 +4,10 @@ let router = express.Router();
 let mongoose = require('mongoose');
 let passport = require('passport');
 
+//Enable JWT
+let jwt = require('jsonwebtoken');
+let DB = require('../config/db');
+
 //Create the user model instance
 let userModel = require('../models/user');
 let User = userModel.User; //alias
@@ -65,6 +69,26 @@ module.exports.processLoginPage = (req, res, next) => {
             {
                 return next(err);
             }
+
+            //Create an object for the user information payload
+            const payload = 
+            {
+                id: user._id,
+                displayName: user.displayName,
+                username: user.username,
+                email: user.email
+            }
+            //Sign the payload
+            const authToken = jwt.sign(payload, DB.Secret, {
+                expiresIn: 604800 // 1 week, in seconds
+            });
+            /*res.json({success: true, msg: 'User logged in successfully', user: {
+                id: user._id,
+                displayName: user.displayName,
+                username: user.username,
+                email: user.email
+            }, token: authToken});*/ //getting ready to convert to API
+
             return res.redirect('/book-list');
         });
     })(req, res, next);
@@ -115,6 +139,9 @@ module.exports.processRegisterPage = (req, res, next) => {
         {
             // if no error exists, registration is successful
             //redirect the user to authenticate them
+
+            //res.json({success: true, msg: 'User logged in successfully'}); //getting ready to convert to API
+
             return passport.authenticate('local')(req, res, () => {
                 res.redirect('/book-list')
             });
